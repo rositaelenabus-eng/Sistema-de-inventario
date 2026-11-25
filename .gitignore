@@ -1,0 +1,29 @@
+# Maven / Java / Spring Boot
+target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-error.log*
+
+# Environment & secrets
+.env
+.env.*
+
+# IDEs & editors
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
