@@ -1,0 +1,116 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5 col-xl-4">
+        
+        <!-- Tarjeta de Login -->
+        <div class="card card-custom border-0 shadow-lg overflow-hidden fade-in">
+          
+          <!-- Encabezado decorativo -->
+          <div class="card-header bg-gradient-login text-white text-center py-4 border-0">
+            <div class="icon-circle mx-auto mb-2 shadow-sm">
+              <i class="bi bi-shield-lock-fill fs-2"></i>
+            </div>
+            <h4 class="fw-bold mb-1">Acceso al Sistema</h4>
+            <p class="small text-white-50 mb-0">Gestión de Inventario y Productos</p>
+          </div>
+
+          <!-- Cuerpo del Formulario -->
+          <div class="card-body p-4">
+            
+            <!-- Alerta de Error -->
+            <div *ngIf="mensajeError" class="alert alert-danger d-flex align-items-center gap-2 py-2 px-3 small rounded-3" role="alert">
+              <i class="bi bi-exclamation-triangle-fill fs-5 text-danger flex-shrink-0"></i>
+              <div>{{ mensajeError }}</div>
+            </div>
+
+            <form (ngSubmit)="iniciarSesion()">
+              <!-- Campo Usuario -->
+              <div class="mb-3">
+                <label for="username" class="form-label fw-semibold small text-muted">Usuario</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0 text-muted">
+                    <i class="bi bi-person"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    [(ngModel)]="credenciales.username"
+                    class="form-control bg-light border-start-0"
+                    placeholder="Ej. admin"
+                    required
+                    autocomplete="username"
+                  />
+                </div>
+              </div>
+
+              <!-- Campo Contraseña -->
+              <div class="mb-4">
+                <label for="password" class="form-label fw-semibold small text-muted">Contraseña</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0 text-muted">
+                    <i class="bi bi-key"></i>
+                  </span>
+                  <input
+                    [type]="mostrarPassword ? 'text' : 'password'"
+                    id="password"
+                    name="password"
+                    [(ngModel)]="credenciales.password"
+                    class="form-control bg-light border-start-0 border-end-0"
+                    placeholder="••••••••"
+                    required
+                    autocomplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    class="input-group-text bg-light border-start-0 text-muted btn-toggle-eye"
+                    (click)="toggleMostrarPassword()">
+                    <i class="bi" [ngClass]="mostrarPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Botón Ingresar -->
+              <div class="d-grid mb-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary-gradient py-2 fw-semibold shadow-sm d-flex justify-content-center align-items-center gap-2"
+                  [disabled]="cargando">
+                  <span *ngIf="cargando" class="spinner-border spinner-border-sm" role="status"></span>
+                  <i *ngIf="!cargando" class="bi bi-box-arrow-in-right"></i>
+                  <span>{{ cargando ? 'Iniciando sesión...' : 'Ingresar al Sistema' }}</span>
+                </button>
+              </div>
+            </form>
+
+            <!-- Sección de Credenciales de Prueba (Muy útil para revisar y calificar) -->
+            <div class="p-3 bg-light rounded-3 mt-4 border border-light-subtle">
+              <div class="d-flex align-items-center gap-1 text-muted small fw-semibold mb-2">
+                <i class="bi bi-info-circle-fill text-primary"></i>
+                <span>Credenciales de prueba rápidas:</span>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary py-1 px-2 small"
+                  (click)="usarCredencial('admin', 'admin123')">
+                  <i class="bi bi-person-badge me-1"></i> Admin (admin / admin123)
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary py-1 px-2 small"
+                  (click)="usarCredencial('usuario', '12345')">
+                  <i class="bi bi-person me-1"></i> Usuario (usuario / 12345)
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+

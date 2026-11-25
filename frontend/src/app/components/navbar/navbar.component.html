@@ -1,0 +1,52 @@
+<nav *ngIf="estaAutenticado()" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3 mb-4">
+  <div class="container">
+    <!-- Brand / Logotipo -->
+    <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" routerLink="/productos">
+      <span class="badge bg-primary p-2 rounded-3">
+        <i class="bi bi-box-seam-fill fs-5"></i>
+      </span>
+      <span>StockMaster <small class="text-secondary fs-6 fw-normal">| Gestor</small></span>
+    </a>
+
+    <!-- Botón hamburguesa responsive -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Enlaces de navegación -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-list-ul me-1"></i> Lista de Productos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productos/nuevo" routerLinkActive="active">
+            <i class="bi bi-plus-circle me-1"></i> Registrar Producto
+          </a>
+        </li>
+      </ul>
+
+      <!-- Información del usuario logueado -->
+      <div class="d-flex align-items-center gap-3" *ngIf="obtenerUsuario() as usuario">
+        <div class="text-end text-light">
+          <div class="fw-semibold small">
+            <i class="bi bi-person-circle me-1 text-primary"></i>
+            {{ usuario.nombreCompleto }}
+          </div>
+          <span class="badge bg-secondary text-uppercase" style="font-size: 0.7rem;">
+            Rol: {{ usuario.rol }}
+          </span>
+        </div>
+
+        <!-- Botón cerrar sesión -->
+        <button class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1" (click)="cerrarSesion()">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Salir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+

@@ -1,0 +1,32 @@
+.login-wrapper {
+  min-height: calc(100vh - 80px);
+}
+
+.bg-gradient-login {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-toggle-eye {
+  cursor: pointer;
+  background: transparent;
+}
+
+.btn-toggle-eye:hover {
+  color: #4f46e5 !important;
+}
+
+.form-control:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+}
+

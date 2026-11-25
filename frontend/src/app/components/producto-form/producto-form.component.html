@@ -1,0 +1,156 @@
+<div class="container pb-5 fade-in">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+
+      <!-- Botón Volver -->
+      <a routerLink="/productos" class="btn btn-link text-decoration-none text-muted mb-3 p-0 d-inline-flex align-items-center gap-1">
+        <i class="bi bi-arrow-left"></i>
+        <span>Volver a la lista de productos</span>
+      </a>
+
+      <!-- Tarjeta del Formulario -->
+      <div class="card card-custom border-0 overflow-hidden shadow-sm">
+        
+        <!-- Header -->
+        <div class="card-header bg-white py-3 px-4 border-bottom">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge" [ngClass]="esModoEdicion ? 'bg-warning text-dark' : 'bg-primary'">
+              <i class="bi" [ngClass]="esModoEdicion ? 'bi-pencil-fill' : 'bi-plus-circle-fill'"></i>
+            </span>
+            <h4 class="fw-bold mb-0 text-dark">
+              {{ esModoEdicion ? 'Modificar Producto #' + idProducto : 'Registrar Nuevo Producto' }}
+            </h4>
+          </div>
+          <small class="text-muted">
+            {{ esModoEdicion ? 'Actualiza los datos del producto en la base de datos' : 'Ingresa los datos para agregarlo al inventario' }}
+          </small>
+        </div>
+
+        <!-- Formulario -->
+        <div class="card-body p-4">
+          
+          <!-- Alerta de Error -->
+          <div *ngIf="mensajeError" class="alert alert-danger d-flex align-items-center gap-2 mb-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill text-danger fs-5"></i>
+            <div>{{ mensajeError }}</div>
+          </div>
+
+          <!-- Spinner al cargar datos para edición -->
+          <div *ngIf="cargando" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status"></div>
+            <div class="text-muted small mt-2">Cargando datos del producto...</div>
+          </div>
+
+          <form *ngIf="!cargando" (ngSubmit)="guardarProducto()">
+            
+            <!-- Campo Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label fw-semibold small">
+                Nombre del Producto <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                [(ngModel)]="producto.nombre"
+                class="form-control"
+                placeholder="Ej. Teclado Mecánico RGB"
+                required
+              />
+            </div>
+
+            <!-- Campo Descripción -->
+            <div class="mb-3">
+              <label for="descripcion" class="form-label fw-semibold small">
+                Descripción
+              </label>
+              <textarea
+                id="descripcion"
+                name="descripcion"
+                rows="3"
+                [(ngModel)]="producto.descripcion"
+                class="form-control"
+                placeholder="Detalles sobre especificaciones, modelo, color..."
+              ></textarea>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <!-- Campo Categoría -->
+              <div class="col-md-6">
+                <label for="categoria" class="form-label fw-semibold small">
+                  Categoría <span class="text-danger">*</span>
+                </label>
+                <select
+                  id="categoria"
+                  name="categoria"
+                  [(ngModel)]="producto.categoria"
+                  class="form-select"
+                  required>
+                  <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+
+              <!-- Campo Precio -->
+              <div class="col-md-3">
+                <label for="precio" class="form-label fw-semibold small">
+                  Precio ($) <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light">$</span>
+                  <input
+                    type="number"
+                    id="precio"
+                    name="precio"
+                    step="0.01"
+                    min="0"
+                    [(ngModel)]="producto.precio"
+                    class="form-control"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Campo Stock -->
+              <div class="col-md-3">
+                <label for="stock" class="form-label fw-semibold small">
+                  Stock (unid.) <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="stock"
+                  name="stock"
+                  min="0"
+                  [(ngModel)]="producto.stock"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+
+            <hr class="my-4 text-muted">
+
+            <!-- Botones de Acción -->
+            <div class="d-flex justify-content-end gap-2">
+              <a routerLink="/productos" class="btn btn-outline-secondary px-3">
+                Cancelar
+              </a>
+              <button
+                type="submit"
+                class="btn btn-primary-gradient px-4 d-flex align-items-center gap-2"
+                [disabled]="guardando">
+                <span *ngIf="guardando" class="spinner-border spinner-border-sm" role="status"></span>
+                <i *ngIf="!guardando" class="bi bi-save"></i>
+                <span>{{ guardando ? 'Guardando...' : (esModoEdicion ? 'Actualizar Producto' : 'Guardar Producto') }}</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
